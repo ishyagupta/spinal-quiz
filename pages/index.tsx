@@ -353,10 +353,8 @@ export default function Home() {
     setAnswers(newAnswers);
   };
 
-  const score = answers.reduce((acc: number, ans, i) => {
-  if (ans === questions[i].correctIndex) return acc + 1;
-  return acc;
-}, 0);
+  const score = answers.filter((ans, i) => ans === questions[i].correctIndex).length;
+
 
 
   const handleSubmit = () => {
