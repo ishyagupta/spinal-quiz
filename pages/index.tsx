@@ -374,81 +374,70 @@ export default function Home() {
         <strong>Submit</strong> to check your score.
       </p>
 
-      {questions.map((q, qIndex) => {
-  const isSelected = answers[qIndex] === null ? false : answers[qIndex] === optIndex;
-  const isCorrect = q.correctIndex === optIndex;
-  return (
-    <div
-      key={q.id}
-      style={{
-        border: "1px solid #ddd",
-        borderRadius: 8,
-        padding: "1.2rem",
-        marginBottom: "1.2rem",
-        backgroundColor: "#fafafa"
-      }}
-    >
-      <div style={{ fontWeight: 600, marginBottom: "0.8rem", fontSize: "1.1em" }}>
-        {qIndex + 1}. {q.text}
-      </div>
-      <div>
-        {q.options.map((opt, optIndex) => (
-          <button
-            key={optIndex}
-            onClick={() => handleSelect(qIndex, optIndex)}
-            disabled={submitted}
-            style={{
-              display: "block",
-              width: "100%",
-              textAlign: "left",
-              padding: "0.8rem 1rem",
-              marginBottom: "0.4rem",
-              borderRadius: 6,
-              border: "2px solid #ddd",
-              backgroundColor: submitted 
-                ? isCorrect 
-                  ? "#d4edda" 
-                  : isSelected 
-                    ? "#f8d7da" 
-                    : "#f8f9fa"
-                : isSelected 
-                  ? "#cce7ff" 
-                  : "#f8f9fa",
-              color: submitted && isSelected && !isCorrect ? "#721c24" : "#333",
-              cursor: submitted ? "not-allowed" : "pointer",
-              fontSize: "16px",
-              transition: "all 0.2s ease"
-            }}
-            onMouseEnter={(e) => {
-              if (!submitted && !isSelected) {
-                e.currentTarget.style.backgroundColor = "#e3f2fd";
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!submitted) {
-                e.currentTarget.style.backgroundColor = isSelected ? "#cce7ff" : "#f8f9fa";
-              }
-            }}
-          >
-            <strong>{String.fromCharCode(65 + optIndex)}.</strong> {opt}
-          </button>
-        ))}
-      </div>
-      {submitted && (
-        <div style={{ 
-          marginTop: "0.6rem", 
-          padding: "0.4rem", 
-          backgroundColor: "#e8f5e8", 
-          borderRadius: 4,
-          fontSize: "0.9rem",
-          fontWeight: 500
-        }}>
-          ✓ Correct: <strong>{String.fromCharCode(65 + q.correctIndex)}. {q.options[q.correctIndex]}</strong>
-        </div>
-      )}
+      {questions.map((q, qIndex) => (
+  <div
+    key={q.id}
+    style={{
+      border: "1px solid #ddd",
+      borderRadius: 8,
+      padding: "1.2rem",
+      marginBottom: "1.2rem",
+      backgroundColor: "#fafafa"
+    }}
+  >
+    <div style={{ fontWeight: 600, marginBottom: "0.8rem", fontSize: "1.1em" }}>
+      {qIndex + 1}. {q.text}
     </div>
-  );
-})}
+    {q.options.map((opt, optIndex) => {
+      const isSelected = answers[qIndex] === optIndex;
+      const isCorrect = q.correctIndex === optIndex;
+      return (
+        <button
+          key={optIndex}
+          onClick={() => handleSelect(qIndex, optIndex)}
+          disabled={submitted}
+          style={{
+            display: "block",
+            width: "100%",
+            textAlign: "left",
+            padding: "0.8rem 1rem",
+            marginBottom: "0.4rem",
+            borderRadius: 6,
+            border: "2px solid #ddd",
+            backgroundColor: submitted 
+              ? isCorrect 
+                ? "#d4edda" 
+                : isSelected 
+                  ? "#f8d7da" 
+                  : "#f8f9fa"
+              : isSelected 
+                ? "#cce7ff" 
+                : "#f8f9fa",
+            color: submitted && isSelected && !isCorrect ? "#721c24" : "#333",
+            cursor: submitted ? "not-allowed" : "pointer",
+            fontSize: "16px",
+            transition: "all 0.2s ease"
+          }}
+        >
+          <strong>{String.fromCharCode(65 + optIndex)}.</strong> {opt}
+        </button>
+      );
+    })}
+    {submitted && (
+      <div style={{ 
+        marginTop: "0.6rem", 
+        padding: "0.4rem", 
+        backgroundColor: "#e8f5e8", 
+        borderRadius: 4,
+        fontSize: "0.9rem",
+        fontWeight: 500
+      }}>
+        ✓ Correct: <strong>{String.fromCharCode(65 + q.correctIndex)}. {q.options[q.correctIndex]}</strong>
+      </div>
+    )}
+  </div>
+))}
+
 
 
       <div style={{ marginTop: "1rem" }}>
