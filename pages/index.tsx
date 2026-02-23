@@ -399,22 +399,34 @@ export default function Home() {
                 : "#f7f7f7";
               return (
                 <button
-                  key={optIndex}
-                  onClick={() => handleSelect(qIndex, optIndex)}
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    textAlign: "left",
-                    padding: "0.5rem 0.75rem",
-                    marginBottom: "0.3rem",
-                    borderRadius: 4,
-                    border: "1px solid #ccc",
-                    backgroundColor: bgColor,
-                    cursor: submitted ? "default" : "pointer"
-                  }}
-                >
-                  {String.fromCharCode(65 + optIndex)}. {opt}
-                </button>
+  key={optIndex}
+  onClick={(e) => {
+    e.preventDefault();
+    handleSelect(qIndex, optIndex);
+  }}
+  disabled={submitted}
+  style={{
+    display: "block",
+    width: "100%",
+    textAlign: "left",
+    padding: "0.75rem 1rem",
+    marginBottom: "0.5rem",
+    borderRadius: 6,
+    border: "2px solid #ddd",
+    backgroundColor: isSelected 
+      ? isCorrect 
+        ? "#4CAF50" 
+        : submitted ? "#f44336" : "#e3f2fd"
+      : submitted ? "#f5f5f5" : "#f9f9f9",
+    color: submitted && !isCorrect && isSelected ? "white" : "black",
+    cursor: submitted ? "not-allowed" : "pointer",
+    fontSize: "16px",
+    transition: "all 0.2s"
+  }}
+>
+  <strong>{String.fromCharCode(65 + optIndex)}.</strong> {opt}
+</button>
+
               );
             })}
           </div>
