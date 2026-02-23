@@ -389,39 +389,32 @@ export default function Home() {
       {qIndex + 1}. {q.text}
     </div>
     {q.options.map((opt, optIndex) => {
-      const isSelected = answers[qIndex] === optIndex;
-      const isCorrect = q.correctIndex === optIndex;
-      return (
-        <button
-          type="button"
-          key={optIndex}
-          onClick={() => handleSelect(qIndex, optIndex)}
-          disabled={submitted}
-          style={{
-            display: "block",
-            width: "100%",
-            textAlign: "left",
-            padding: "0.8rem 1rem",
-            marginBottom: "0.4rem",
-            borderRadius: 6,
-            border: "2px solid #ddd",
-            backgroundColor: submitted 
-              ? isCorrect ? "#d4edda" 
-              : isSelected ? "#f8d7da" 
-              : "#f8f9fa"
-              : isSelected ? "#cce7ff" 
-              : "#f8f9fa",
-            color: submitted && isSelected && !isCorrect ? "#721c24" : "#333",
-            cursor: submitted ? "not-allowed" : "pointer",
-            fontSize: "16px",
-            transition: "all 0.2s ease",
-            boxShadow: isSelected ? "0 2px 4px rgba(0,0,0,0.1)" : "none"
-          }}
-        >
-          <strong>{String.fromCharCode(65 + optIndex)}.</strong> {opt}
-        </button>
-      );
-    })}
+  const isSelected = answers[qIndex] === optIndex;
+  const isCorrect = q.correctIndex === optIndex;
+  return (
+    <button
+  type="button"
+  onClick={handleSubmit}
+  disabled={submitted}
+  style={{
+    padding: "12px 24px",
+    fontSize: "18px",
+    fontWeight: "bold",
+    borderRadius: "8px",
+    border: "none",
+    backgroundColor: "#28a745",
+    color: "white",
+    cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(40,167,69,0.4)",
+    transition: "all 0.3s ease"
+  }}
+>
+  {submitted ? `Score: ${score}/${questions.length}` : "Submit Quiz"}
+</button>
+
+  );
+})}
+
     {submitted && (
       <div style={{ 
         marginTop: "0.6rem", 
