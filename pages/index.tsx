@@ -374,7 +374,7 @@ export default function Home() {
         <strong>Submit</strong> to check your score.
       </p>
 
-      {questions.map((q, qIndex) => (
+    {questions.map((q, qIndex) => (
   <div
     key={q.id}
     style={{
@@ -393,6 +393,7 @@ export default function Home() {
       const isCorrect = q.correctIndex === optIndex;
       return (
         <button
+          type="button"
           key={optIndex}
           onClick={() => handleSelect(qIndex, optIndex)}
           disabled={submitted}
@@ -405,18 +406,16 @@ export default function Home() {
             borderRadius: 6,
             border: "2px solid #ddd",
             backgroundColor: submitted 
-              ? isCorrect 
-                ? "#d4edda" 
-                : isSelected 
-                  ? "#f8d7da" 
-                  : "#f8f9fa"
-              : isSelected 
-                ? "#cce7ff" 
-                : "#f8f9fa",
+              ? isCorrect ? "#d4edda" 
+              : isSelected ? "#f8d7da" 
+              : "#f8f9fa"
+              : isSelected ? "#cce7ff" 
+              : "#f8f9fa",
             color: submitted && isSelected && !isCorrect ? "#721c24" : "#333",
             cursor: submitted ? "not-allowed" : "pointer",
             fontSize: "16px",
-            transition: "all 0.2s ease"
+            transition: "all 0.2s ease",
+            boxShadow: isSelected ? "0 2px 4px rgba(0,0,0,0.1)" : "none"
           }}
         >
           <strong>{String.fromCharCode(65 + optIndex)}.</strong> {opt}
